@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Converter</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        document.addEventListener('DOMContentLoaded',function() {
+            document.querySelector('input[name="price"]').onchange=changeEventPrice;
+        },false);
+
+        function changeEventPrice(event) {
+            // You can use “this” to refer to the selected element.
+            if(!event.target.value) alert('Please enter a price');
+            else
+            {
+                var weight = document.querySelector('input[name="weight_quantity"]').value;
+
+                //alert('You entered ' + event.target.value + '!');
+                document.querySelector('input[name="price_per_unit"]').value = this.value / weight;
+
+                // TODO convert weight into other units automatically...
+                // function TODO
+                //https://support.google.com/websearch/answer/3284611?hl=en-GB#unitconverter
+
+                /*
+                English stones,
+                imperial tons,
+                metric tonnes, micrograms,
+                short tons,
+                stones, troy drams, troy ounces
+                 */
+
+                document.querySelector('label[name="lbl_weight_pounds"]').innerHTML  = weight * 0.00220462;
+                document.querySelector('label[name="lbl_price_per_unit_pounds"]').innerHTML  = document.querySelector('input[name="price_per_unit"]').value * 0.00220462;
+
+                document.querySelector('label[name="lbl_weight_kilo_grammes"]').innerHTML  = weight / 1000;
+                document.querySelector('label[name="lbl_price_per_unit_kilo_grammes"]').innerHTML  = document.querySelector('input[name="price_per_unit"]').value / 1000;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <div>
+            <input type="number" value="1.50" name="price" style="text-align: right;">
+            <input type="number" value="300" name="weight_quantity" style="text-align: right;">
+            <input type="text" value="grams" name="units" list="unitsList">
+            <datalist id="unitsList">
+                <option value="grams">
+                <option value="kilograms">
+                <option value="pounds">
+                <option value="ounces">
+            </datalist>
+            <input type="number" value="0.005" name="price_per_unit" style="text-align: right;">
+        </div>
+        <!-- compare todo add multiple lines as arrays?-->
+
+        <table>
+            <tr>
+                <td></td>
+                <td>Measurement</td>
+                <td>Price per measurement</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>grams</td>
+                <td><label name="lbl_weight_grammes"></label></td>
+                <td><label name="lbl_price_per_unit_grammes"></label></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>kilograms</td>
+                <td><label name="lbl_weight_kilo_grammes"></label></td>
+                <td><label name="lbl_price_per_unit_kilo_grammes"></label></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>pounds</td>
+                <td><label name="lbl_weight_pounds"></label></td>
+                <td><label name="lbl_price_per_unit_pounds"></label></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>ounces</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
